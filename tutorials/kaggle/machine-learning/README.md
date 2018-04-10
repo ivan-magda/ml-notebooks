@@ -14,3 +14,4 @@ Machine learning is the hottest field in data science, and this track will get y
 
 #### Level 2:
 - [Handling Missing Values](./handling-missing-values.ipynb)
+- [Using Categorical Data with One Hot Encoding](./using-categorical-data-with-one-hot-encoding.ipynb)
