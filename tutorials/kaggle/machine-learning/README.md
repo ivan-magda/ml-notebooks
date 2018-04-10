@@ -6,3 +6,4 @@ Machine learning is the hottest field in data science, and this track will get y
 - [How Models Work](./how-models-work.ipynb)
 - [Starting Your ML Project](./starting-your-ml-project.ipynb)
 - [Selecting and Filtering Data](./selecting-and-filtering-in-pandas.ipynb)
+- [Your First Scikit-Learn Model](./your-first-scikit-learn-model)
