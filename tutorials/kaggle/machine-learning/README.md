@@ -9,3 +9,4 @@ Machine learning is the hottest field in data science, and this track will get y
 - [Your First Scikit-Learn Model](./your-first-scikit-learn-model)
 - [Model Validation](./model-validation)
 - [Underfitting, Overfitting and Model Optimization](./underfitting-overfitting-and-model-optimization)
+- [Random Forests](./random-forests)
