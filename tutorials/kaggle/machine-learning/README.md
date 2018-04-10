@@ -10,3 +10,4 @@ Machine learning is the hottest field in data science, and this track will get y
 - [Model Validation](./model-validation)
 - [Underfitting, Overfitting and Model Optimization](./underfitting-overfitting-and-model-optimization)
 - [Random Forests](./random-forests)
+- [Submitting From A Kernel](./submitting-from-a-kernel)
