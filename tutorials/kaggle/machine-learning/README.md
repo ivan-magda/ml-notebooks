@@ -11,3 +11,6 @@ Machine learning is the hottest field in data science, and this track will get y
 - [Underfitting, Overfitting and Model Optimization](./underfitting-overfitting-and-model-optimization)
 - [Random Forests](./random-forests)
 - [Submitting From A Kernel](./submitting-from-a-kernel)
+
+#### Level 2:
+- [Handling Missing Values](./handling-missing-values.ipynb)
