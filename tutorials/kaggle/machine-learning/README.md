@@ -17,3 +17,4 @@ Machine learning is the hottest field in data science, and this track will get y
 - [Using Categorical Data with One Hot Encoding](./using-categorical-data-with-one-hot-encoding.ipynb)
 - [Learning to Use XGBoost](./learning-to-use-xgboost.ipynb)
 - [Partial Dependence Plots](./partial-dependence-plots.ipynb)
+- [Pipelines](./pipelines.ipynb)
