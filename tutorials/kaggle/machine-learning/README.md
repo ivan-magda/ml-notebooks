@@ -18,3 +18,4 @@ Machine learning is the hottest field in data science, and this track will get y
 - [Learning to Use XGBoost](./learning-to-use-xgboost.ipynb)
 - [Partial Dependence Plots](./partial-dependence-plots.ipynb)
 - [Pipelines](./pipelines.ipynb)
+- [Cross Validation](./cross-validation.ipynb)
