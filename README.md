@@ -13,3 +13,4 @@ Repository contains the example code with the fundamentals of Machine Learning i
 - [Spam Classifier](./spam-filter.ipynb) - build a spam classifier.
 - [Training Linear Models](./training-linear-models.ipynb) - learn how to train linear models.
 - [Support Vector Machines](./support-vector-machines.ipynb) - learn about support vector machines.
+- [Decision Trees](./decision-trees.ipynb) - learn how to train, visualize, and make predictions with Decision Trees.
