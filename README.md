@@ -15,3 +15,4 @@ Repository contains the example code with the fundamentals of Machine Learning i
 - [Support Vector Machines](./support-vector-machines.ipynb) - learn about support vector machines.
 - [Decision Trees](./decision-trees.ipynb) - learn how to train, visualize, and make predictions with Decision Trees.
 - [Ensemble Learning and Random Forests](./ensemble-learning-and-random-forests.ipynb) - discover the most popular Ensemble methods, including bagging, boosting, stacking, Random Forests...
+- [Dimensionality Reduction](./dimensionality-reduction.ipynb) - learn more about reduce dimensionality technique.
