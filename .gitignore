@@ -64,3 +64,5 @@ __pycache__/
 *.ipynb_checkpoints/
 
 *.gz
+
+/tmp
