@@ -6,7 +6,7 @@ Repository contains the example code with the fundamentals of Machine Learning i
 - [Kaggle](./tutorials/kaggle)
 
 #### Notebooks:
-- The Fundamentals of Machine Learning
+- The Fundamentals of Machine Learning:
 	- [Lifesat](./lifesat.ipynb) - predict life satisfaction based on the GDP per capita.
 	- [Housing](./housing.ipynb) - predict median house values in Californian districts, given a number of features from these districts.
 	- [Classification](./classification.ipynb) - classification of the MNIST handwritten digits.
@@ -17,5 +17,5 @@ Repository contains the example code with the fundamentals of Machine Learning i
 	- [Decision Trees](./decision-trees.ipynb) - learn how to train, visualize, and make predictions with Decision Trees.
 	- [Ensemble Learning and Random Forests](./ensemble-learning-and-random-forests.ipynb) - discover the most popular Ensemble methods, including bagging, boosting, stacking, Random Forests...
 	- [Dimensionality Reduction](./dimensionality-reduction.ipynb) - learn more about reduce dimensionality technique.
-- Neural Networks and Deep Learning
+- Neural Networks and Deep Learning:
 	- [Up and running with TensorFlow](./up-and-running-with-tensorflow.ipynb) - learn more about powerful open source software library for numerical computation.
