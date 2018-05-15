@@ -19,3 +19,4 @@ Repository contains the example code with the fundamentals of Machine Learning i
 	- [Dimensionality Reduction](./dimensionality-reduction.ipynb) - learn more about reduce dimensionality technique.
 - Neural Networks and Deep Learning:
 	- [Up and running with TensorFlow](./up-and-running-with-tensorflow.ipynb) - learn more about powerful open source software library for numerical computation.
+	- [Introduction to Artificial Neural Networks](./introduction-to-artificial-neural-networks.ipynb) - learn more about *artificial neural networks* (ANNs).
