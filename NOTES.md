@@ -1,6 +1,7 @@
 # Index
 
 1. [The Machine Learning Landscape](#the-machine-learning-landscape)
+11. [Training Deep Neural Nets](#training-deep-neural-nets)
 
 
 ## The Machine Learning Landscape
@@ -70,6 +71,33 @@ Cross-validation is a technique that makes it possible to compare models (for mo
 <img src="./images/classification/precision.png">
 <img src="./images/classification/recall.png">
 <img src="./images/classification/confusion-matrix.png">
+
+
+## Training Deep Neural Nets
+
+### 1. Is it okay to initialize all the weights to the same value as long as that value is selected randomly using He initialization?
+No, all weights should be sampled independently; they should not all have the same initial value. One important goal of sampling weights randomly is to break symmetries: if all the weights have the same initial value, even if that value is not zero, then symmetry is not broken (i.e., all neurons in a given layer are equivalent), and backpropagation will be unable to break it. Concretely, this means that all the neurons in any given layer will always have the same weights. It’s like having just one neuron per layer, and much slower. It is virtually impossible for such a configuration to converge to a good solution.
+
+### 2. Is it okay to initialize the bias terms to 0?
+It is perfectly fine to initialize the bias terms to zero. Some people like to initialize them just like weights, and that’s okay too; it does not make much difference.
+
+### 3. Name three advantages of the ELU activation function over ReLU.
+A few advantages of the ELU function over the ReLU function are:
+- It can take on negative values, so the average output of the neurons in any given layer is typically closer to 0 than when using the ReLU activation function (which never outputs negative values). This helps alleviate the vanishing gradients problem.
+- It always has a nonzero derivative, which avoids the dying units issue that can affect ReLU units.
+- It is smooth everywhere, whereas the ReLU’s slope abruptly jumps from 0 to 1 at z = 0. Such an abrupt change can slow down Gradient Descent because it will bounce around z = 0.
+
+### 4. In which cases would you want to use each of the following activation functions: ELU, leaky ReLU (and its variants), ReLU, tanh, logistic, and softmax?
+The ELU activation function is a good default. If you need the neural network to be as fast as possible, you can use one of the leaky ReLU variants instead (e.g., a simple leaky ReLU using the default hyperparameter value). The simplicity of the ReLU activation function makes it many people’s preferred option, despite the fact that they are generally outperformed by the ELU and leaky ReLU. However, the ReLU activation function’s capability of outputting precisely zero can be useful in some cases. The hyperbolic tangent (tanh) can be useful in the output layer if you need to output a number between –1 and 1, but nowadays it is not used much in hidden layers. The logistic activation function is also useful in the output layer when you need to estimate a probability (e.g., for binary classification), but it is also rarely used in hidden layers (there are exceptions — for example, for the coding layer of variational autoencoders). Finally, the softmax activation function is useful in the output layer to output probabilities for mutually exclusive classes, but other than that it is rarely (if ever) used in hidden layers.
+
+### 5. What may happen if you set the `momentum` hyperparameter too close to 1 (e.g., 0.99999) when using a `MomentumOptimizer`?
+If you set the `momentum` hyperparameter too close to 1 (e.g., 0.99999) when using a `MomentumOptimizer`, then the algorithm will likely pick up a lot of speed, hopefully roughly toward the global minimum, but then it will shoot right past the minimum, due to its momentum. Then it will slow down and come back, accelerate again, overshoot again, and so on. It may oscillate this way many times before converging, so overall it will take much longer to converge than with a smaller `momentum` value.
+
+### 6. Name three ways you can produce a sparse model.
+One way to produce a sparse model (i.e., with most weights equal to zero) is to train the model normally, then zero out tiny weights. For more sparsity, you can apply **ℓ1** regularization during training, which pushes the optimizer toward sparsity. A third option is to combine **ℓ1** regularization with *dual averaging*, using TensorFlow’s `FTRLOptimizer` class.
+
+### 7. Does dropout slow down training? Does it slow down inference (i.e., making predictions on new instances)?
+Yes, dropout does slow down training, in general roughly by a factor of two. However, it has no impact on inference since it is only turned on during training.
 
 
 Géron, Aurélien. Hands-On Machine Learning with Scikit-Learn and TensorFlow: Concepts, Tools, and Techniques to Build Intelligent Systems . O'Reilly Media. Kindle Edition. 
