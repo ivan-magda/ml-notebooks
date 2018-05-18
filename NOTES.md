@@ -62,7 +62,7 @@ If you tune hyperparameters using the test set, you risk overfitting the test se
 ### 19. What is cross-validation and why would you prefer it to a validation set?
 Cross-validation is a technique that makes it possible to compare models (for model selection and hyperparameter tuning) without the need for a separate validation set. This saves precious training data.
 
-# Confusion Matrix
+### *Confusion Matrix*
 
 - *Precision* - is the accuracy of the positive predictions; this is called the precision of the classifier.
 - *Recall* - also called sensitivity or true positive rate (**TPR**): this is the ratio of positive instances that are correctly detected by the classifier.
