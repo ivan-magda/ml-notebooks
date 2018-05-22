@@ -2,6 +2,7 @@
 
 1. [The Machine Learning Landscape](#the-machine-learning-landscape)
 11. [Training Deep Neural Nets](#training-deep-neural-nets)
+12. [Distributing TensorFlow Across Devices and Servers](#distributing-tensorflow-across-devices-and-servers)
 
 
 ## The Machine Learning Landscape
@@ -99,6 +100,39 @@ One way to produce a sparse model (i.e., with most weights equal to zero) is to 
 ### 7. Does dropout slow down training? Does it slow down inference (i.e., making predictions on new instances)?
 Yes, dropout does slow down training, in general roughly by a factor of two. However, it has no impact on inference since it is only turned on during training.
 
+
+## Distributing TensorFlow Across Devices and Servers
+
+### 1. If you get a `CUDA_ERROR_OUT_OF_MEMORY` when starting your TensorFlow program, what is probably going on? What can you do about it?
+
+When a TensorFlow process starts, it grabs all the available memory on all GPU devices that are visible to it, so if you get a `CUDA_ERROR_OUT_OF_MEMORY` when starting your TensorFlow program, it probably means that other processes are running that have already grabbed all the memory on at least one visible GPU device (most likely it is another TensorFlow process). To fix this problem, a trivial solution is to stop the other processes and try again. However, if you need all processes to run simultaneously, a simple option is to dedicate different devices to each process, by setting the `CUDA_VISIBLE_DEVICES` environment variable appropriately for each device. Another option is to configure TensorFlow to grab only part of the GPU memory, instead of all of it, by creating a `ConfigProto`, setting its `gpu_options.per_process_gpu_memory_fraction` to the proportion of the total memory that it should grab (e.g., 0.4), and using this `ConfigProto` when opening a session. The last option is to tell TensorFlow to grab memory only when it needs it by setting the `gpu_options.allow_growth` to `True`. However, this last option is usually not recommended because any memory that TensorFlow grabs is never released, and it is harder to guarantee a repeatable behavior (there may be race conditions depending on which processes start first, how much memory they need during training, and so on).
+
+### 2. What is the difference between pinning an operation on a device and placing an operation on a device?
+
+By pinning an operation on a device, you are telling TensorFlow that this is where you would like this operation to be placed. However, some constraints may prevent TensorFlow from honoring your request. For example, the operation may have no implementation (called a *kernel*) for that particular type of device. In this case, TensorFlow will raise an exception by default, but you can configure it to fall back to the CPU instead (this is called *soft placement*). Another example is an operation that can modify a variable; this operation and the variable need to be collocated.
+So the difference between pinning an operation and placing an operation is that pinning is what you ask TensorFlow (“ Please place this operation on GPU #1”) while placement is what TensorFlow actually ends up doing (“ Sorry, falling back to the CPU”).
+
+### 3. If you are running on a GPU-enabled TensorFlow installation, and you just use the default placement, will all operations be placed on the first GPU?
+
+If you are running on a GPU-enabled TensorFlow installation, and you just use the default placement, then if all operations have a GPU kernel (i.e., a GPU implementation), yes, they will all be placed on the first GPU. However, if one or more operations do not have a GPU kernel, then by default TensorFlow will raise an exception. If you configure TensorFlow to fall back to the CPU instead (soft placement), then all operations will be placed on the first GPU except the ones without a GPU kernel and all the operations that must be collocated with them.
+
+### 4. If you pin a variable to "`/gpu:0`", can it be used by operations placed on `/gpu:1`? Or by operations placed on "`/cpu:0`"? Or by operations pinned to devices located on other servers?
+
+Yes, if you pin a variable to `/gpu:0`, it can be used by operations placed on `/gpu:1`.
+TensorFlow will automatically take care of adding the appropriate operations to transfer the variable’s value across devices.
+The same goes for devices located on different servers (as long as they are part of the same cluster).
+
+### 5. Can two operations placed on the same device run in parallel?
+
+Yes, two operations placed on the same device can run in parallel: TensorFlow automatically takes care of running operations in parallel (on different CPU cores or different GPU threads), as long as no operation depends on another operation’s output. Moreover, you can start multiple sessions in parallel threads (or processes), and evaluate operations in each thread. Since sessions are independent, TensorFlow will be able to evaluate any operation from one session in parallel with any operation from another session.
+
+### 6. What is a control dependency and when would you want to use one?
+
+Control dependencies are used when you want to postpone the evaluation of an operation X until after some other operations are run, even though these operations are not required to compute X. This is useful in particular when X would occupy a lot of memory and you only need it later in the computation graph, or if X uses up a lot of I/O (for example, it requires a large variable value located on a different device or server) and you don’t want it to run at the same time as other I/O-hungry operations, to avoid saturating the bandwidth.
+
+### 7. Suppose you train a DNN for days on a TensorFlow cluster, and immediately after your training program ends you realize that you forgot to save the model using a `Saver`. Is your trained model lost?
+
+You’re in luck! In distributed TensorFlow, the variable values live in containers managed by the cluster, so even if you close the session and exit the client program, the model parameters are still alive and well on the cluster. You simply need to open a new session to the cluster and save the model (make sure you don’t call the variable initializers or restore a previous model, as this would destroy your precious new model!).
 
 
 *Géron, Aurélien. Hands-On Machine Learning with Scikit-Learn and TensorFlow: Concepts, Tools, and Techniques to Build Intelligent Systems . O'Reilly Media. Kindle Edition.*
