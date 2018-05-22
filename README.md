@@ -21,3 +21,4 @@ Repository contains the example code with the fundamentals of Machine Learning i
 	- [Up and running with TensorFlow](./up-and-running-with-tensorflow.ipynb) - learn more about powerful open source software library for numerical computation.
 	- [Introduction to Artificial Neural Networks](./introduction-to-artificial-neural-networks.ipynb) - learn more about *artificial neural networks* (ANNs).
 	- [Training Deep Neural Nets](./deep-learning.ipynb) - learn how to train deep DNNs.
+	- [Distributed TensorFlow](./distributed-tensorflow.ipynb) - learn how to how to use TensorFlow to distribute computations across multiple devices (CPUs and GPUs) and run them in parallel.
