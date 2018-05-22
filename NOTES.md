@@ -3,6 +3,7 @@
 1. [The Machine Learning Landscape](#the-machine-learning-landscape)
 11. [Training Deep Neural Nets](#training-deep-neural-nets)
 12. [Distributing TensorFlow Across Devices and Servers](#distributing-tensorflow-across-devices-and-servers)
+13. [Convolutional Neural Networks](#convolutional-neural-networks)
 
 
 ## The Machine Learning Landscape
@@ -133,6 +134,41 @@ Control dependencies are used when you want to postpone the evaluation of an ope
 ### 7. Suppose you train a DNN for days on a TensorFlow cluster, and immediately after your training program ends you realize that you forgot to save the model using a `Saver`. Is your trained model lost?
 
 You’re in luck! In distributed TensorFlow, the variable values live in containers managed by the cluster, so even if you close the session and exit the client program, the model parameters are still alive and well on the cluster. You simply need to open a new session to the cluster and save the model (make sure you don’t call the variable initializers or restore a previous model, as this would destroy your precious new model!).
+
+
+## Convolutional Neural Networks
+
+### 1. What are the advantages of a CNN over a fully connected DNN for image classification?
+
+These are the main advantages of a CNN over a fully connected DNN for image classification:
+- Because consecutive layers are only partially connected and because it heavily reuses its weights, a CNN has many fewer parameters than a fully connected DNN, which makes it much faster to train, reduces the risk of overfitting, and requires much less training data. 
+- When a CNN has learned a kernel that can detect a particular feature, it can detect that feature anywhere on the image. In contrast, when a DNN learns a feature in one location, it can detect it only in that particular location. Since images typically have very repetitive features, CNNs are able to generalize much better than DNNs for image processing tasks such as classification, using fewer training examples.
+- Finally, a DNN has no prior knowledge of how pixels are organized; it does not know that nearby pixels are close. A CNN’s architecture embeds this prior knowledge. Lower layers typically identify features in small areas of the images, while higher layers combine the lower-level features into larger features. This works well with most natural images, giving CNNs a decisive head start compared to DNNs.
+
+### 2. Consider a CNN composed of three convolutional layers, each with 3 × 3 kernels, a stride of 2, and SAME padding. The lowest layer outputs 100 feature maps, the middle one outputs 200, and the top one outputs 400. The input images are RGB images of 200 × 300 pixels. What is the total number of parameters in the CNN? If we are using 32-bit floats, at least how much RAM will this network require when making a prediction for a single instance? What about when training on a mini-batch of 50 images?
+
+500.0 + 34.3 + 3.4 = 537.7 MB.
+
+### 3. If your GPU runs out of memory while training a CNN, what are five things you could try to solve the problem?
+
+If your GPU runs out of memory while training a CNN, here are five things you could try to solve the problem (other than purchasing a GPU with more RAM):
+- Reduce the mini-batch size.
+- Reduce dimensionality using a larger stride in one or more layers.
+- Remove one or more layers.
+- Use 16-bit floats instead of 32-bit floats.
+- Distribute the CNN across multiple devices.
+
+### 4. Why would you want to add a max pooling layer rather than a convolutional layer with the same stride?
+
+A max pooling layer has no parameters at all, whereas a convolutional layer has quite a few (see the previous questions).
+
+### 5. When would you want to add a *local response normalization layer*?
+
+A *local response normalization layer* makes the neurons that most strongly activate inhibit neurons at the same location but in neighboring feature maps, which encourages different feature maps to specialize and pushes them apart, forcing them to explore a wider range of features. It is typically used in the lower layers to have a larger pool of low-level features that the upper layers can build upon.
+
+### 6. Can you name the main innovations in AlexNet, compared to LeNet-5? What about the main innovations in GoogLeNet and ResNet?
+
+The main innovations in AlexNet compared to LeNet-5 are (1) it is much larger and deeper, and (2) it stacks convolutional layers directly on top of each other, instead of stacking a pooling layer on top of each convolutional layer. The main innovation in GoogLeNet is the introduction of inception modules, which make it possible to have a much deeper net than previous CNN architectures, with fewer parameters. Finally, ResNet’s main innovation is the introduction of skip connections, which make it possible to go well beyond 100 layers. Arguably, its simplicity and consistency are also rather innovative.
 
 
 *Géron, Aurélien. Hands-On Machine Learning with Scikit-Learn and TensorFlow: Concepts, Tools, and Techniques to Build Intelligent Systems . O'Reilly Media. Kindle Edition.*
