@@ -23,3 +23,4 @@ Repository contains the example code with the fundamentals of Machine Learning i
 	- [Training Deep Neural Nets](./deep-learning.ipynb) - learn how to train deep DNNs.
 	- [Distributed TensorFlow](./distributed-tensorflow.ipynb) - learn how to how to use TensorFlow to distribute computations across multiple devices (CPUs and GPUs) and run them in parallel.
 	- [Convolutional Neural Networks](convolutional-neural-networks.ipynb) - learn more about CNNs.
+	- [Recurrent Neural Networks](./recurrent-neural-networks.ipynb) - learn more about recurrent neural netwprks (RNN).
